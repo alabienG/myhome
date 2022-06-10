@@ -133,7 +133,7 @@ class LogementService implements ILogement
 
     }
 
-    
+
 
     public function listByProprio()
     {

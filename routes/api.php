@@ -21,8 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['jwt.verify']], function () {
-    Route::post('/register', [\App\Http\Controllers\Controller::class, 'register']);
-
     Route::post('/logout', [\App\Http\Controllers\Controller::class, 'logout']);
     Route::post('/refresh', [\App\Http\Controllers\Controller::class, 'refresh']);
 
@@ -40,3 +38,4 @@ Route::get("logements", [\App\Http\Controllers\LogementController::class, 'index
 Route::get("logements/{id}", [\App\Http\Controllers\LogementController::class, 'show']);
 
 Route::post('/login', [\App\Http\Controllers\Controller::class, 'login']);
+Route::post('/register', [\App\Http\Controllers\Controller::class, 'register']);
