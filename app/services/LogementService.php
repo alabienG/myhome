@@ -4,9 +4,11 @@
 namespace App\services;
 
 
+use App\Http\Resources\LogementResource;
 use App\interfaces\IHistorique;
 use App\interfaces\ILogement;
 use App\Models\Logement;
+use App\Models\Media;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
@@ -25,7 +27,7 @@ class LogementService implements ILogement
     {
         // TODO: Implement index() method.
         $all = Logement::all();
-        return response()->json($all, 200);
+        return response()->json(LogementResource::collection($all), 200);
     }
 
     public function store(Request $request)
@@ -134,7 +136,6 @@ class LogementService implements ILogement
     }
 
 
-
     public function listByProprio()
     {
         // TODO: Implement listByProprio() method.
@@ -162,5 +163,24 @@ class LogementService implements ILogement
             "statut" => "Succes",
             "data" => $bean
         ], 200);
+    }
+
+    public function addMedia($idLogement, Request $request)
+    {
+        // TODO: Implement addMedia() method.
+        if ($request->hasFile('path')) {
+            $path = $request->file('path');
+            $name = 'images' . random_int(1, 100000) . '.' . $path->getClientOriginalExtension(); // generer un  nom de fichier
+            $path->storeAs("public/logements/" . auth()->user()->nom, $name);
+
+            $media = new Media();
+            $media->path = $name;
+            $media->logement_id = $idLogement;
+            $media->save();
+            return \response()->json(['message' => 'Media ajouté'], 201);
+        } else {
+            return \response()->json(['erreur' => "Veuillez choisir une image"], Response::HTTP_NOT_ACCEPTABLE);
+        }
+
     }
 }

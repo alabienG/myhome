@@ -19,4 +19,14 @@ class Logement extends Model
         'statut',
         'proprietaire'
     ];
+
+    public function medias()
+    {
+        return $this->hasMany(Media::class, "logement_id");
+    }
+
+    public function proprio()
+    {
+        return $this->belongsTo(User::class, "proprietaire");
+    }
 }

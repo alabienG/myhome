@@ -30,8 +30,7 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::put('desable/{id}', [\App\Http\Controllers\LogementController::class, 'desable']);
     Route::put('enable/{id}', [\App\Http\Controllers\LogementController::class, 'enable']);
     Route::get('logementByUser', [\App\Http\Controllers\LogementController::class, 'listByProprio']);
-
-
+    Route::post('addMedia/{idLogement}', [\App\Http\Controllers\LogementController::class, 'addMedia']);
 });
 
 Route::get("logements", [\App\Http\Controllers\LogementController::class, 'index']);

@@ -24,4 +24,6 @@ interface ILogement
     public function destroy($id);
 
     public function listByProprio();
+
+    public function addMedia($idLogement, Request $request);
 }

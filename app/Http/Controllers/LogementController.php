@@ -91,4 +91,9 @@ class LogementController extends Controller
     {
         return $this->service->listByProprio();
     }
+
+    public function addMedia($idLogement, Request $request)
+    {
+        return $this->service->addMedia($idLogement, $request);
+    }
 }
